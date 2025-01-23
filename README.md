@@ -35,6 +35,15 @@ If a version number does not come up, you can install node at the offical websit
 
 Once Node.js is installed, run ```npm install``` in the nodejs folder. 
 
+You will need to create a .env file in the nodejs folder to store your username and password for the MySQL server on your computer. The contents of the file should look like the following.
+
+```
+MYSQL_HOST='127.0.0.1'
+MYSQL_USER='root'
+MYSQL_PASSWORD='your password'
+MYSQL_DB='test_db'
+```
+
 Node.js is now set up! You can type `npm run dev` in the terminal to launch it.
 
 
