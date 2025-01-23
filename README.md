@@ -13,7 +13,7 @@ Here are good youtube links for both Mac and Windows.
 Once the server is set up, you may continue.
 
 ## Clone the Repository
-Cd into your desired directory and type the following into the terminal.\
+Cd into your desired directory and type the following into the terminal.
 ```
 git clone https://github.com/fculmone/cs348-project.git
 ```
