@@ -16,6 +16,6 @@ WHERE r.user_email = 'bart@simpson.com'
 
 -- 3) Amanda wants to edit her review and rating where review_id was 3
 UPDATE reviews
-SET rating = 4, review_text = 'Nice place, but a bit crowded. Would recommend during off-peak seasons.'
+SET rating = 4, review_text = 'Nice place, but expensive. Would recommend during off-peak seasons.'
 WHERE review_id = 3;
 select * from reviews;
