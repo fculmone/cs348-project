@@ -33,6 +33,8 @@ npm -v
 ```
 If a version number does not come up, you can install node at the offical website https://nodejs.org/en/download/ 
 
+Please install nodejs version 16
+
 Once Node.js is installed, run ```npm install``` in the nodejs folder. 
 
 You will need to create a .env file in the nodejs folder to store your username and password for the MySQL server on your computer. The contents of the file should look like the following.
