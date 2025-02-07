@@ -9,7 +9,7 @@ CREATE TABLE user (
 );
 
 
-INSERT INTO users (email, password_hash, username)
+INSERT INTO user (email, password_hash, username)
 VALUES
 ('bart@simpson.com', 'password', 'bart_s'),
 ('test@email.com', 'testpw', 'test_user'),
@@ -22,13 +22,14 @@ CREATE TABLE city (
     city_id INT AUTO_INCREMENT PRIMARY KEY,
     city_name VARCHAR(255) NOT NULL,
     country VARCHAR(255),
-    description TEXT
+    description TEXT,
+    popularity INT DEFAULT 0 CHECK (popularity BETWEEN 0 AND 100)
 );
 
-INSERT INTO city (city_name, country, description)
+INSERT INTO city (city_name, country, description, popularity)
 VALUES
-('Paris', 'France', 'Known for its rich history and landmarks like the Eiffel Tower.'),
-('New York', 'USA', 'Famous for the Statue of Liberty, Times Square, and skyscrapers.');
+('Paris', 'France', 'Known for its rich history and landmarks like the Eiffel Tower.', 92),
+('New York', 'USA', 'Famous for the Statue of Liberty, Times Square, and skyscrapers.', 85);
 
 
 -- Create review table
@@ -40,8 +41,8 @@ CREATE TABLE review (
     rating INT CHECK (rating >= 1 AND rating <= 5),
     review_text TEXT,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_email) REFERENCES users(email),
-    FOREIGN KEY (city_id) REFERENCES cities(city_id)
+    FOREIGN KEY (user_email) REFERENCES user(email),
+    FOREIGN KEY (city_id) REFERENCES city_id(city_id)
 );
 
 -- Insert sample reviews
@@ -76,9 +77,9 @@ CREATE TABLE favourite_cities (
     username VARCHAR(255) NOT NULL,
     city_id INT NOT NULL,
     country_id INT NOT NULL,
-    FOREIGN KEY (username) REFERENCES users(username),
-    FOREIGN KEY (city_id) REFERENCES cities(city_id),
-    FOREIGN KEY (country_id) REFERENCES countries(country_id),
+    FOREIGN KEY (username) REFERENCES user(username),
+    FOREIGN KEY (city_id) REFERENCES city(city_id),
+    FOREIGN KEY (country_id) REFERENCES country(country_id),
     PRIMARY KEY (username, city_id, country_id)
 );
 

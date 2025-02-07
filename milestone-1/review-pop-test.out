@@ -1,0 +1,14 @@
+city_name	country	review_text	user_email	date_created
+Paris	France	Amazing city with lots of history!	bart@simpson.com	2025-02-07 16:57:02
+Paris	France	Nice place, but a bit crowded.	amanda@waterloo.ca	2025-02-07 16:57:02
+review_id	rating	review_text	date_created
+1	4	Amazing city with lots of history!	2025-02-07 16:57:02
+4	5	Paris is even better on my second visit! Highly recommend!	2025-02-07 17:09:45
+review_id	user_email	city_id	rating	review_text	date_created
+1	bart@simpson.com	1	4	Amazing city with lots of history!	2025-02-07 16:57:02
+2	test@email.com	2	5	The best city in the world, so much to do!	2025-02-07 16:57:02
+3	amanda@waterloo.ca	1	4	Nice place, but expensive. Would recommend during off-peak seasons.	2025-02-07 16:57:02
+4	bart@simpson.com	1	5	Paris is even better on my second visit! Highly recommend!	2025-02-07 17:09:45
+city_id	city_name	country	description	popularity
+1	Paris	France	Known for its rich history and landmarks like the Eiffel Tower.	92
+2	New York	USA	Famous for the Statue of Liberty, Times Square, and skyscrapers.	85

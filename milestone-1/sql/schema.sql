@@ -1,5 +1,5 @@
-CREATE DATABASE test_db;
-USE test_db;
+CREATE DATABASE test_database;
+USE test_database;
 
 
 DROP TABLE IF EXISTS user;
