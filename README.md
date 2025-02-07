@@ -33,7 +33,7 @@ npm -v
 ```
 If a version number does not come up, you can install node at the offical website https://nodejs.org/en/download/ 
 
-Please install nodejs version 16
+Please install nodejs version 16 if you encounter problems with other versions.
 
 Once Node.js is installed, run ```npm install``` in the nodejs folder. 
 
