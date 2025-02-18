@@ -44,7 +44,7 @@ You will need to create a .env file in the cs348-nextjs folder to store your use
 ```
 DATABASE_HOST="localhost"
 DATABASE_USER="root"
-DATABASE_PASSWORD="password231"
+DATABASE_PASSWORD="your password"
 DATABASE_NAME="test_db"
 ```
 
