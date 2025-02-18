@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
+import Navbar from "./ui/navbar";
+
 export default function Home() {
   const [cities, setCities] = useState([]);
   useEffect(() => {
@@ -25,6 +27,7 @@ export default function Home() {
         <div key={index}>{city.city_name}</div>
       ))}
       <Button className="font-bold ">Click me</Button>
+      <div className="bg-blue-500">hi</div>
     </div>
   );
 }
