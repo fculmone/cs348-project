@@ -1,6 +1,6 @@
 # cs348-project
 
-This project is created using Node.js/Express, React and MySql. Follow the steps below to set up the database and the web app.
+This project is created using Next.js, React and MySql. Follow the steps below to set up the database and the web app.
 
 ## Install MySQL on your Computer
 Navigate to the [MySql Community Community Downloads Page](https://dev.mysql.com/downloads) and download the appropriate files. The MySQL Server is required and the MySQL workbench is optional.
