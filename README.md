@@ -39,7 +39,7 @@ Once Node.js is installed, run install the required node dependancies in the cs3
 npm install
 ```
 
-You will need to create a .env file in the nodejs folder to store your username and password for the MySQL server on your computer. The contents of the file should look like the following.
+You will need to create a .env file in the cs348-nextjs folder to store your username and password for the MySQL server on your computer. The contents of the file should look like the following.
 
 ```
 DATABASE_HOST="localhost"
