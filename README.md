@@ -45,7 +45,7 @@ You will need to create a .env file in the cs348-nextjs folder to store your use
 DATABASE_HOST="localhost"
 DATABASE_USER="root"
 DATABASE_PASSWORD="your password"
-DATABASE_NAME="test_db"
+DATABASE_NAME="cs348_project_db"
 ```
 
 Next.js is now set up! You can type run the project with
