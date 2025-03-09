@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div>
       {cities.map((city, index) => (
-        <div key={index}>{city.city_name}</div>
+        <div key={index}>{city.city}</div>
       ))}
       <Button className="font-bold ">Click me</Button>
       <div className="bg-blue-500">hi</div>

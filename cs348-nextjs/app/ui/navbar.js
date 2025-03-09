@@ -35,7 +35,7 @@ export default function Navbar() {
           <Link href="/">Home</Link>
         </li>
         <li className="hover:text-gray-400 cursor-pointer">
-          <Link href="/">About</Link>
+          <Link href="/cities">Cities</Link>
         </li>
         <li className="hover:text-gray-400 cursor-pointer">
           <Link href="/">Services</Link>
@@ -47,13 +47,16 @@ export default function Navbar() {
 
       <div className="flex-1 flex justify-end">
         {username !== "" ? (
-          <Link href="/profile" className="flex items-center">
+          <Link
+            href="/profile"
+            className="flex items-center hover:opacity-80 hover:underline"
+          >
             <Avatar className="h-12 w-12">
               <AvatarImage src={`pfp/${pfp}`} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
 
-            <div className="ml-4 text-gray-700 hover:underline">{username}</div>
+            <div className="ml-4 text-gray-700 ">{username}</div>
           </Link>
         ) : (
           <Button
