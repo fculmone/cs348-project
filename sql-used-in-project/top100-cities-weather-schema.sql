@@ -47,7 +47,7 @@ INSERT INTO top100_cities_weather(city,temperature_celsius,wind_speed_ms,latitud
 INSERT INTO top100_cities_weather(city,temperature_celsius,wind_speed_ms,latitude,longitude,description,country) VALUES ('Las Vegas',27.439999999999998,12.52,36.175,-115.1372,'clear sky','United States');
 INSERT INTO top100_cities_weather(city,temperature_celsius,wind_speed_ms,latitude,longitude,description,country) VALUES ('Miami',25.04000000000002,8.23,25.7743,-80.1937,'broken clouds','United States');
 INSERT INTO top100_cities_weather(city,temperature_celsius,wind_speed_ms,latitude,longitude,description,country) VALUES ('Kuala Lumpur',26.07000000000005,1.54,3.1431,101.6865,'few clouds','Malaysia');
-INSERT INTO top100_cities_weather(city,temperature_celsius,wind_speed_ms,latitude,longitude,description,country) VALUES ('Venice',27.710000000000036,1.54,27.0998,-82.4543,'overcast clouds','Italy');
+INSERT INTO top100_cities_weather(city,temperature_celsius,wind_speed_ms,latitude,longitude,description,country) VALUES ('Venice',27.710000000000036,1.54,27.0998,-82.4543,'overcast clouds','United States');
 INSERT INTO top100_cities_weather(city,temperature_celsius,wind_speed_ms,latitude,longitude,description,country) VALUES ('Abu Dhabi',29.5,1.54,24.4667,54.3667,'clear sky','United Arab Emirates');
 INSERT INTO top100_cities_weather(city,temperature_celsius,wind_speed_ms,latitude,longitude,description,country) VALUES ('Stockholm',5.2900000000000205,2.57,59.3326,18.0649,'overcast clouds','Sweden');
 INSERT INTO top100_cities_weather(city,temperature_celsius,wind_speed_ms,latitude,longitude,description,country) VALUES ('Brussels',8.410000000000025,2.06,50.8504,4.3488,'light rain','Belgium');
@@ -133,6 +133,13 @@ INSERT INTO top100_cities_weather (
     'Pattaya', 28.00, 3.09, 12.9236, 100.8825, 'few clouds', 'Thailand'
 );
 
+
+-- Venice, Italy (the one in the dataset is Venice California)
+INSERT INTO top100_cities_weather (
+    city, temperature_celsius, wind_speed_ms, latitude, longitude, description, country
+) VALUES (
+    'Venice', 13.00, 2.68, 45.4408, 12.3155, 'fog', 'Italy'
+);
 
 
 -- the cities in this dataset but not the top100_cities can be found with the query below
