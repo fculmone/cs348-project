@@ -36,3 +36,19 @@ INSERT INTO city (city_name, country, description, popularity)
 VALUES
 ('Paris', 'France', 'Known for its rich history and landmarks like the Eiffel Tower.', 92),
 ('New York', 'USA', 'Famous for the Statue of Liberty, Times Square, and skyscrapers.', 85);
+
+
+-- Create favourite cities table
+DROP TABLE IF EXISTS  favourite_cities;
+CREATE TABLE favourite_cities (
+    username VARCHAR(255) NOT NULL,
+    city_id INT NOT NULL,
+    FOREIGN KEY (username) REFERENCES user(username),
+    FOREIGN KEY (city_id) REFERENCES top100_cities(ranking),
+    PRIMARY KEY (username, city_id)
+);
+
+-- Sample favourite cities data
+INSERT INTO favourite_cities (username, city_id)
+VALUES 
+('bart', 1);

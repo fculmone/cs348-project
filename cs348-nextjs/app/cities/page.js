@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Heart } from "lucide-react";
 import {
   Pagination,
   PaginationContent,
@@ -241,7 +242,78 @@ function Pages({ pageNum, setPageNum, totalPages }) {
 }
 
 function Card({ cityData }) {
+  const [favourites, setFavourites] = useState([]);
+  const savedUsername = window.localStorage.getItem("username");
+
+  useEffect(() => {
+    const fetchFavourites = async () => {
+      try {
+        const data = await fetch("api/favourite_cities");
+        const response = await data.json();
+        if (Array.isArray(response)) {
+          setFavourites(response);
+        } else {
+          setFavourites([]);
+        }
+      } catch {
+        console.log(error);
+      }
+    };
+
+    fetchFavourites();
+  }, [])
+
+  const toggleFavourites = async (cityId, userName) => {
+    try {
+      const method = favourites.some((fav) => fav.city_id === cityId) ? "DELETE" : "POST";
+      
+      const response = await fetch("api/favourite_cities", {
+        method: method,
+        headers: {
+          "Content-Type": "application/json"
+        }, 
+        body: JSON.stringify({
+          username: userName,
+          city_id: cityId
+        }),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        if (method === "POST") {
+          // updating state
+          setFavourites([...favourites, {city_id: cityId}]);
+        } else {
+          setFavourites(favourites.filter((fav) => fav.city_id !== cityId))
+        }
+      } else {
+        console.log(result.error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
+    <div className="relative max-w-sm rounded overflow-hidden shadow-lg hover:scale-105 hover:cursor-pointer ease-in duration-75">
+      <div
+        className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md cursor-pointer z-10"
+        onClick={(e) => {
+          e.stopPropagation(); // prevents navigation when clicking the heart
+          toggleFavourites(cityData.ranking, savedUsername);
+        }}
+      >
+        <Heart
+          className={
+            favourites.some((fav) => fav.city_id === cityData.ranking)
+              ? "text-red-500 fill-red-500"
+              : "text-gray-400"
+          }
+          size={24}
+        />
+      </div>
+    
     <Link href={"/city?city=" + cityData.city + "&country=" + cityData.country}>
       <div className="max-w-sm rounded overflow-hidden shadow-lg hover:scale-105 hover:cursor-pointer ease-in duration-75">
         <img
@@ -289,6 +361,7 @@ function Card({ cityData }) {
         </div>
       </div>
     </Link>
+    </div>
   );
 }
 
