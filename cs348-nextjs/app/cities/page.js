@@ -264,8 +264,12 @@ function Card({ cityData }) {
   }, [])
 
   const toggleFavourites = async (cityId, userName) => {
+    if (userName === null) {
+      alert("Please sign in to favourite")
+      return;
+    }
     try {
-      const method = favourites.some((fav) => fav.city_id === cityId) ? "DELETE" : "POST";
+      const method = favourites.some((fav) => fav.city_id === cityId && fav.username === userName) ? "DELETE" : "POST";
       
       const response = await fetch("api/favourite_cities", {
         method: method,
@@ -283,9 +287,9 @@ function Card({ cityData }) {
       if (response.ok) {
         if (method === "POST") {
           // updating state
-          setFavourites([...favourites, {city_id: cityId}]);
+          setFavourites([...favourites, {username: userName, city_id: cityId}]);
         } else {
-          setFavourites(favourites.filter((fav) => fav.city_id !== cityId))
+          setFavourites(favourites.filter((fav) => fav.city_id !== cityId && fav.username === userName ))
         }
       } else {
         console.log(result.error);
@@ -306,7 +310,7 @@ function Card({ cityData }) {
       >
         <Heart
           className={
-            favourites.some((fav) => fav.city_id === cityData.ranking)
+            favourites.some((fav) => fav.city_id === cityData.ranking && fav.username === savedUsername)
               ? "text-red-500 fill-red-500"
               : "text-gray-400"
           }
@@ -315,7 +319,7 @@ function Card({ cityData }) {
       </div>
     
     <Link href={"/city?city=" + cityData.city + "&country=" + cityData.country}>
-      <div className="max-w-sm rounded overflow-hidden shadow-lg hover:scale-105 hover:cursor-pointer ease-in duration-75">
+      <div className="max-w-sm rounded overflow-hidden  hover:scale-105 hover:cursor-pointer ease-in duration-75">
         <img
           className="w-full"
           src="https://alumni.mcmaster.ca/s/1439/images/editor/qotw/2021/sun_5.jpg"
@@ -381,7 +385,11 @@ export default function () {
       if (searchString === "") {
         const data = await fetch(`api/cities`);
         const response = await data.json();
-        setCities(response);
+        if (Array.isArray(response)) {
+          setCities(response);
+        } else {
+          setCities([])
+        }
       } else {
         const data = await fetch(`api/city-search/${searchString}`);
         const response = await data.json();
