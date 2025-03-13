@@ -1,17 +1,21 @@
 import { createConnection } from "@/lib/db.js";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const username = searchParams.get("username");
     const db = await createConnection();
-    const sql = "SELECT * FROM favourite_cities;";
-    const [favourite_cities] = await db.query(sql);
+    const sql = "SELECT * FROM favourite_cities WHERE username = ?";
+    const [favourite_cities] = await db.query(sql, [username]);
+    
     return NextResponse.json(favourite_cities);
   } catch (error) {
     console.log(error);
     return NextResponse.json({ error: "Failed to fetch favourite cities" });
   }
 }
+
 
 export async function POST(request) {
     try {

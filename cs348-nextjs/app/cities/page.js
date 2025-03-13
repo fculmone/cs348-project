@@ -246,56 +246,40 @@ function Card({ cityData }) {
   const savedUsername = window.localStorage.getItem("username");
 
   useEffect(() => {
-    const fetchFavourites = async () => {
-      try {
-        const data = await fetch("api/favourite_cities");
-        const response = await data.json();
-        if (Array.isArray(response)) {
-          setFavourites(response);
-        } else {
-          setFavourites([]);
-        }
-      } catch {
-        console.log(error);
-      }
-    };
+      fetch(`/api/favourite_cities?username=${encodeURIComponent(savedUsername)}`)
+      .then((res) => res.json())
+      .then((data) => setFavourites(Array.isArray(data) ? data : []))
+      .catch((error) => console.error("Error fetching favourites:", error));
+    
+    }, [savedUsername]);
 
-    fetchFavourites();
-  }, [])
-
-  const toggleFavourites = async (cityId, userName) => {
-    if (userName === null) {
+  const toggleFavourites = async () => {
+    if (!savedUsername) {
       alert("Please sign in to favourite")
       return;
     }
+
+    const method = favourites.some((fav) => fav.city_id === cityData.ranking) ? "DELETE" : "POST";
+
     try {
-      const method = favourites.some((fav) => fav.city_id === cityId && fav.username === userName) ? "DELETE" : "POST";
-      
       const response = await fetch("api/favourite_cities", {
         method: method,
-        headers: {
-          "Content-Type": "application/json"
-        }, 
-        body: JSON.stringify({
-          username: userName,
-          city_id: cityId
-        }),
+        headers: {"Content-Type": "application/json"}, 
+        body: JSON.stringify({username: savedUsername, city_id: cityData.ranking}),
       });
-      
-      const result = await response.json();
       
       if (response.ok) {
         if (method === "POST") {
           // updating state
-          setFavourites([...favourites, {username: userName, city_id: cityId}]);
+          setFavourites([...favourites, {username: savedUsername, city_id: cityData.ranking}]);
         } else {
-          setFavourites(favourites.filter((fav) => fav.city_id !== cityId && fav.username === userName ))
+          setFavourites(favourites.filter((fav) => fav.city_id !== cityData.ranking))
         }
       } else {
-        console.log(result.error);
+        console.log("Error with updating favourites");
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error with updating favourites");
     }
   };
 
@@ -305,12 +289,12 @@ function Card({ cityData }) {
         className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md cursor-pointer z-10"
         onClick={(e) => {
           e.stopPropagation(); // prevents navigation when clicking the heart
-          toggleFavourites(cityData.ranking, savedUsername);
+          toggleFavourites();
         }}
       >
         <Heart
           className={
-            favourites.some((fav) => fav.city_id === cityData.ranking && fav.username === savedUsername)
+            favourites.some((fav) => fav.city_id === cityData.ranking)
               ? "text-red-500 fill-red-500"
               : "text-gray-400"
           }
