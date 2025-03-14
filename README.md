@@ -64,4 +64,4 @@ If you would like to understand how React itself works. I strongly reccomend the
 ## Implemented Features & Files
 - Sign up, Log in/Log out (log_in/page.js, sign_up/page.js, store/user_store.js, api/users/route.js)
 - Favourite a city & view favourites in profile (api/favourite_cities/route.js, api/ranking/[ranking]/route.js cities/page.js, profile/page.js)
-
+- Leave a review & edit or delete it after submission (cs348-nextjs/app/api/reviews/route.js, cs348-nextjs/app/city/page.js, cs348-nextjs/components/ui/reviewModal.jsx, sql-used-in-project/reviews_schema.sql)
