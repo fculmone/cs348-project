@@ -21,8 +21,10 @@ CREATE TABLE city (
 
 INSERT INTO city (city_name, country, description, popularity)
 VALUES
-('Paris', 'France', 'Known for its rich history and landmarks like the Eiffel Tower.', 92),
-('New York', 'USA', 'Famous for the Statue of Liberty, Times Square, and skyscrapers.', 85);
+('Paris', 'France', 'Known for its rich history and landmarks like the Eiffel Tower.', 92, 50),
+('New York', 'USA', 'Famous for the Statue of Liberty, Times Square, and skyscrapers.', 85, 30),
+('Tokyo', 'Japan', 'Known for its advanced technology, fashion, and bustling city life.', 98, 12),
+('London', 'United Kingdom', 'Famous for its historical landmarks like the Big Ben and the British Museum.', 93, 90);
 
 
 -- Create favourite cities table
