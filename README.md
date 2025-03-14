@@ -60,3 +60,8 @@ I have put a tutorial below that will help you understand how the Next.js file s
 If you would like to understand how React itself works. I strongly reccomend the official documentation. The tutorials on youtube tend to be either framework specific or 4 hours long.
 * https://react.dev/learn
 
+
+## Implemented Features & Files
+- Sign up, Log in/Log out (log_in/page.js, sign_up/page.js, store/user_store.js, api/users/route.js)
+- Favourite a city & view favourites in profile (api/favourite_cities/route.js, api/ranking/[ranking]/route.js cities/page.js, profile/page.js)
+
