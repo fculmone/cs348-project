@@ -302,7 +302,7 @@ function Card({ cityData }) {
         />
       </div>
     
-    <Link href={"/city?city=" + cityData.city + "&country=" + cityData.country}>
+    <Link href={"/city?city_id=" + cityData.ranking + "&city=" + cityData.city + "&country=" + cityData.country}>
       <div className="max-w-sm rounded overflow-hidden  hover:scale-105 hover:cursor-pointer ease-in duration-75">
         <img
           className="w-full"

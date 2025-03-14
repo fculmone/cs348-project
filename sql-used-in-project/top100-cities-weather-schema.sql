@@ -1,5 +1,6 @@
 USE cs348_project_db;
 
+-- Create weather table
 DROP TABLE IF EXISTS top100_cities_weather;
 CREATE TABLE top100_cities_weather(
    city                VARCHAR(17) NOT NULL
@@ -150,3 +151,19 @@ INSERT INTO top100_cities_weather (
 -- ON top100_cities.city = top100_cities_weather.city AND 
 -- top100_cities.country = top100_cities_weather.country
 -- WHERE top100_cities_weather.city IS NULL;
+
+
+-- Sample weather data for a specific city
+SELECT 
+    c.city AS city,
+    c.country,
+    w.temperature_celsius,
+    w.wind_speed_ms,
+    w.latitude,
+    w.longitude
+FROM 
+    top100_cities c
+JOIN 
+    top100_cities_weather w ON c.city = w.city
+WHERE 
+    c.city = 'Venice' AND c.country = 'Italy';
