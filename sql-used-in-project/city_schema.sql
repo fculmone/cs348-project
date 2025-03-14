@@ -15,7 +15,8 @@ CREATE TABLE city (
     city_name VARCHAR(255) NOT NULL,
     country VARCHAR(255),
     description TEXT,
-    popularity INT DEFAULT 0 CHECK (popularity BETWEEN 0 AND 100)
+    popularity INT DEFAULT 0 CHECK (popularity BETWEEN 0 AND 100),
+    health_rating INT DEFAULT 0 CHECK (health_rating BETWEEN 0 and 110) 
 );
 
 INSERT INTO city (city_name, country, description, popularity)
