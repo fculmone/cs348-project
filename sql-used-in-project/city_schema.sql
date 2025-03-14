@@ -19,7 +19,7 @@ CREATE TABLE city (
     health_rating INT DEFAULT 0 CHECK (health_rating BETWEEN 0 and 110) 
 );
 
-INSERT INTO city (city_name, country, description, popularity)
+INSERT INTO city (city_name, country, description, popularity, health_rating)
 VALUES
 ('Paris', 'France', 'Known for its rich history and landmarks like the Eiffel Tower.', 92, 50),
 ('New York', 'USA', 'Famous for the Statue of Liberty, Times Square, and skyscrapers.', 85, 30),
