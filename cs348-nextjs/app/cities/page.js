@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Heart } from "lucide-react";
 import {
   Pagination,
@@ -243,37 +243,47 @@ function Pages({ pageNum, setPageNum, totalPages }) {
 
 function Card({ cityData }) {
   const [favourites, setFavourites] = useState([]);
+  const cityPhotoPath = useRef("");
   const savedUsername = window.localStorage.getItem("username");
 
   useEffect(() => {
-      fetch(`/api/favourite_cities?username=${encodeURIComponent(savedUsername)}`)
+    fetch(`/api/favourite_cities?username=${encodeURIComponent(savedUsername)}`)
       .then((res) => res.json())
       .then((data) => setFavourites(Array.isArray(data) ? data : []))
       .catch((error) => console.error("Error fetching favourites:", error));
-    
-    }, [savedUsername]);
+  }, [savedUsername]);
 
   const toggleFavourites = async () => {
     if (!savedUsername) {
-      alert("Please sign in to favourite")
+      alert("Please sign in to favourite");
       return;
     }
 
-    const method = favourites.some((fav) => fav.city_id === cityData.ranking) ? "DELETE" : "POST";
+    const method = favourites.some((fav) => fav.city_id === cityData.ranking)
+      ? "DELETE"
+      : "POST";
 
     try {
       const response = await fetch("api/favourite_cities", {
         method: method,
-        headers: {"Content-Type": "application/json"}, 
-        body: JSON.stringify({username: savedUsername, city_id: cityData.ranking}),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: savedUsername,
+          city_id: cityData.ranking,
+        }),
       });
-      
+
       if (response.ok) {
         if (method === "POST") {
           // updating state
-          setFavourites([...favourites, {username: savedUsername, city_id: cityData.ranking}]);
+          setFavourites([
+            ...favourites,
+            { username: savedUsername, city_id: cityData.ranking },
+          ]);
         } else {
-          setFavourites(favourites.filter((fav) => fav.city_id !== cityData.ranking))
+          setFavourites(
+            favourites.filter((fav) => fav.city_id !== cityData.ranking)
+          );
         }
       } else {
         console.log("Error with updating favourites");
@@ -284,7 +294,7 @@ function Card({ cityData }) {
   };
 
   return (
-    <div className="relative max-w-sm rounded overflow-hidden shadow-lg hover:scale-105 hover:cursor-pointer ease-in duration-75">
+    <div className="relative max-w-sm rounded overflow-hidden shadow-lg  hover:cursor-pointer ">
       <div
         className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md cursor-pointer z-10"
         onClick={(e) => {
@@ -301,54 +311,71 @@ function Card({ cityData }) {
           size={24}
         />
       </div>
-    
-    <Link href={"/city?city_id=" + cityData.ranking + "&city=" + cityData.city + "&country=" + cityData.country}>
-      <div className="max-w-sm rounded overflow-hidden  hover:scale-105 hover:cursor-pointer ease-in duration-75">
-        <img
-          className="w-full"
-          src="https://alumni.mcmaster.ca/s/1439/images/editor/qotw/2021/sun_5.jpg"
-          alt="Sunset in the mountains"
-        />
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">
-            {cityData.city + ", " + cityData.country}
+
+      <Link
+        href={
+          "/city?city_id=" +
+          cityData.ranking +
+          "&city=" +
+          cityData.city +
+          "&country=" +
+          cityData.country
+        }
+      >
+        <div className="max-w-sm rounded overflow-hidden hover:scale-105 hover:cursor-pointer ease-in duration-75">
+          <img
+            className="w-full"
+            src={(
+              "/city-images/" +
+              cityData.ranking +
+              "-" +
+              cityData.city +
+              "-" +
+              cityData.country +
+              ".jpg"
+            ).replaceAll(" ", "-")}
+            alt="Sunset in the mountains"
+          />
+          <div className="px-6 py-4">
+            <div className="font-bold text-xl mb-2">
+              {cityData.city + ", " + cityData.country}
+            </div>
+            <p className="text-gray-700 text-base">
+              {cityData.description.slice(0, 150) + "..."}
+            </p>
           </div>
-          <p className="text-gray-700 text-base">
-            {cityData.description.slice(0, 150) + "..."}
-          </p>
+          <div className="px-6 pt-4 pb-2">
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              #top-{cityData.ranking}
+            </span>
+            {(cityData.tourism_infrastructure +
+              cityData.tourism_performance +
+              cityData.tourism_policy) /
+              3 <=
+            30 ? (
+              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                #tourism📸
+              </span>
+            ) : (
+              <></>
+            )}
+            {(cityData.health_safety + cityData.sustainability) / 2 <= 30 ? (
+              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                #livability🏡🌿
+              </span>
+            ) : (
+              <></>
+            )}
+            {cityData.economic_performance <= 30 ? (
+              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                #business💸
+              </span>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
-        <div className="px-6 pt-4 pb-2">
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-            #top-{cityData.ranking}
-          </span>
-          {(cityData.tourism_infrastructure +
-            cityData.tourism_performance +
-            cityData.tourism_policy) /
-            3 <=
-          30 ? (
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #tourism📸
-            </span>
-          ) : (
-            <></>
-          )}
-          {(cityData.health_safety + cityData.sustainability) / 2 <= 30 ? (
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #livability🏡🌿
-            </span>
-          ) : (
-            <></>
-          )}
-          {cityData.economic_performance <= 30 ? (
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #business💸
-            </span>
-          ) : (
-            <></>
-          )}
-        </div>
-      </div>
-    </Link>
+      </Link>
     </div>
   );
 }
@@ -372,7 +399,7 @@ export default function () {
         if (Array.isArray(response)) {
           setCities(response);
         } else {
-          setCities([])
+          setCities([]);
         }
       } else {
         const data = await fetch(`api/city-search/${searchString}`);
