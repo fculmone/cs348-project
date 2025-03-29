@@ -334,7 +334,9 @@ function Card({ cityData }) {
               cityData.country +
               ".jpg"
             ).replaceAll(" ", "-")}
-            alt="Sunset in the mountains"
+            alt={
+              cityData.ranking + "-" + cityData.city + "-" + cityData.country
+            }
           />
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">
