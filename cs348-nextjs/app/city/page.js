@@ -18,7 +18,7 @@ function CityImage({ cityData }) {
   ).replaceAll(" ", "-");
 
   return (
-    <div className="flex justify-center my-6">
+    <div className="flex justify-center mt-6 mb-2">
       <Image
         src={imgSrc}
         alt={cityData.ranking + "-" + cityData.city + "-" + cityData.country}
@@ -118,19 +118,114 @@ function WeatherCard({ cityName, countryName, weather, setWeather }) {
     fetchData();
   }, []);
 
+  function generateWeatherDescription() {
+    let weatherDesc = `The weather in ${weather.city}, ${weather.country} `;
+
+    if (weather.description === "clear sky") {
+      weatherDesc +=
+        "is reported to have clear skies on most days, meaning you can expect to comfortably enjoy the sunshine.";
+    } else if (weather.description === "broken clouds") {
+      weatherDesc +=
+        "features broken clouds, with the sun occasionally peeking through. It’s a mix of cloud cover and clearer skies.";
+    } else if (weather.description === "shower rain") {
+      weatherDesc +=
+        "includes intermittent shower rain, so you might want to carry an umbrella just in case of sudden downpours.";
+    } else if (weather.description === "scattered clouds") {
+      weatherDesc +=
+        "has scattered clouds, creating a partly cloudy atmosphere with plenty of bright spots.";
+    } else if (weather.description === "overcast clouds") {
+      weatherDesc +=
+        "is dominated by overcast clouds, giving the sky a gray appearance and limiting sunlight.";
+    } else if (weather.description === "light rain") {
+      weatherDesc +=
+        "is experiencing light rain, which may be gentle and steady—good to be prepared with light rain gear.";
+    } else if (weather.description === "few clouds") {
+      weatherDesc +=
+        "has just a few clouds in the sky, so you can expect mostly sunny weather with minimal interruptions.";
+    } else if (weather.description === "fog") {
+      weatherDesc +=
+        "is affected by fog, which may reduce visibility. Exercise caution if you're traveling.";
+    } else if (weather.description === "mist") {
+      weatherDesc +=
+        "is experiencing misty conditions, with a fine layer of moisture in the air that can make surfaces damp.";
+    } else if (weather.description === "moderate rain") {
+      weatherDesc +=
+        "includes moderate rain, steady enough to need a raincoat or umbrella when going outside.";
+    } else if (weather.description === "heavy intensity rain") {
+      weatherDesc +=
+        "is facing heavy intensity rain, which may lead to puddles or minor flooding in some areas—take precautions.";
+    } else if (weather.description === "haze") {
+      weatherDesc +=
+        "is under hazy conditions, which can dull visibility and give the air a slightly smoky or dusty feel.";
+    } else {
+      weatherDesc +=
+        "has changing conditions. Please check the local forecast for more details.";
+    }
+
+    weatherDesc += ` Averaging ${
+      Math.round(weather.temperature_celsius * 100) / 100
+    } degrees celsius throughout the year, temperatures `;
+
+    if (weather.temperature_celsius < 13) {
+      weatherDesc += `can be a bit chilling depending on the season, so ensure you are dressing appropriately.`;
+    } else if (weather.temperature_celsius < 20) {
+      weatherDesc += `are warm on average, but make sure to check the local forcast.`;
+    } else {
+      weatherDesc += `remain consistently high, so ensure you are prepared to deal with the heat.`;
+    }
+
+    weatherDesc += ` Yearly average wind speeds typically hover around ${
+      Math.round(weather.wind_speed_ms * 100) / 100
+    } m/s.`;
+
+    return weatherDesc;
+  }
+
   return (
     <div>
       <div>
         {weather != null ? (
-          <div>
-            {weather.city}, {weather.country}, {weather.temperature_celsius},{" "}
-            {weather.wind_speed_ms}, {weather.description}
-          </div>
+          <div>{generateWeatherDescription()}</div>
         ) : (
-          <div>weatherNull</div>
+          <div></div>
         )}
         {console.log(weather)}
       </div>
+    </div>
+  );
+}
+
+function HashTags({ cityData }) {
+  return (
+    <div className="flex flex-row">
+      <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 my-2">
+        #top-{cityData.ranking}
+      </span>
+      {(cityData.tourism_infrastructure +
+        cityData.tourism_performance +
+        cityData.tourism_policy) /
+        3 <=
+      30 ? (
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 my-2">
+          #tourism📸
+        </span>
+      ) : (
+        <></>
+      )}
+      {(cityData.health_safety + cityData.sustainability) / 2 <= 30 ? (
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 my-2">
+          #livability🏡🌿
+        </span>
+      ) : (
+        <></>
+      )}
+      {cityData.economic_performance <= 30 ? (
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 my-2">
+          #business💸
+        </span>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
@@ -283,21 +378,32 @@ export default function () {
         </div>
 
         <div className="w-full justify-center flex">
-          <CityImage cityData={city} />
+          <div className="w-fit ">
+            <CityImage cityData={city} />
+            <div className="flex items-center">
+              <HashTags cityData={city} />
+            </div>
+          </div>
         </div>
-        <div className="flex mx-80 mt-6">
-          <p>{city.description}</p>
+
+        <div className="flex flex-col mx-80 mt-6">
+          <div>
+            <h2 className="font-semibold text-xl mb-3">About</h2>
+            <p>{city.description}</p>
+          </div>
+          <div>
+            <h2 className="font-semibold text-xl mb-3 mt-10">Weather</h2>
+            <WeatherCard
+              cityName={cityName}
+              countryName={countryName}
+              weather={weather}
+              setWeather={setWeather}
+            />
+          </div>
         </div>
       </div>
 
-      <div>
-        <WeatherCard
-          cityName={cityName}
-          countryName={countryName}
-          weather={weather}
-          setWeather={setWeather}
-        />
-      </div>
+      <div className=""></div>
 
       <div className="w-full flex justify-center"></div>
       <div className="mx-20">
