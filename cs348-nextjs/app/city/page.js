@@ -22,7 +22,7 @@ function CityImage({ cityData }) {
     <div className="flex justify-center my-6">
       <Image
         src={imgSrc}
-        alt="city image"
+        alt={cityData.ranking + "-" + cityData.city + "-" + cityData.country}
         className="rounded-xl object-cover object-middle "
         width={900}
         height={360}
