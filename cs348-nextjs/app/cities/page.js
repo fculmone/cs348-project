@@ -385,8 +385,64 @@ function Card({ cityData }) {
 export default function () {
   const [cities, setCities] = useState([]);
   const [pageNum, setPageNum] = useState(1);
+  const [sortDirection, setSortDirection] = useState(null); // null, 'asc', or 'desc'
   let startPageCityIndex = pageNum * 10 - 10;
   let endPageCityIndex = Math.min(pageNum * 10, cities.length);
+
+  function handleSort() {
+    // Cycle through: null -> asc -> desc -> null
+    if (sortDirection === null) {
+      setSortDirection('asc');
+    } else if (sortDirection === 'asc') {
+      setSortDirection('desc');
+    } else {
+      setSortDirection(null);
+    }
+    // Reset to first page when sort changes
+    setPageNum(1);
+  }
+
+  function Search() {
+    return (
+      <div className="pt-2 relative w-full flex justify-center items-center">
+        <div className="flex items-center relative">
+          <form onSubmit={onSubmit} className="relative">
+            <input
+              className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-[400px]"
+              name="search"
+              type="text"
+              placeholder="Search"
+            />
+            <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
+              <svg
+                className="text-gray-600 h-4 w-4 fill-current"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                viewBox="0 0 56.966 56.966"
+                style={{ enableBackground: "new 0 0 56.966 56.966" }}
+                xmlSpace="preserve"
+                width="512px"
+                height="512px"
+              >
+                <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+              </svg>
+            </button>
+          </form>
+        </div>
+        <button
+          onClick={handleSort}
+          className="ml-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm flex items-center absolute"
+          style={{ right: "calc(50% - 375px)" }}
+        >
+          <span>Sort by Popularity</span>
+          {sortDirection === 'asc' && <span className="ml-1">↑</span>}
+          {sortDirection === 'desc' && <span className="ml-1">↓</span>}
+        </button>
+      </div>
+    );
+  }
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -411,37 +467,6 @@ export default function () {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  function Search() {
-    return (
-      <div className="pt-2 relative mx-auto text-gray-600">
-        <form onSubmit={onSubmit}>
-          <input
-            className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-            name="search"
-            type="text"
-            placeholder="Search"
-          />
-          <button type="submit" className="absolute right-0 top-0 mt-5 mr-4">
-            <svg
-              className="text-gray-600 h-4 w-4 fill-current"
-              version="1.1"
-              id="Capa_1"
-              x="0px"
-              y="0px"
-              viewBox="0 0 56.966 56.966"
-              style={{ enableBackground: "new 0 0 56.966 56.966" }}
-              xmlSpace="preserve"
-              width="512px"
-              height="512px"
-            >
-              <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-            </svg>
-          </button>
-        </form>
-      </div>
-    );
   }
 
   useEffect(() => {
@@ -471,6 +496,15 @@ export default function () {
       />
       <div className="grid grid-cols-2 gap-9 my-6">
         {cities
+          .slice()
+          .sort((a, b) => {
+            if (sortDirection === 'asc') {
+              return a.ranking - b.ranking;
+            } else if (sortDirection === 'desc') {
+              return b.ranking - a.ranking;
+            }
+            return 0; 
+          })
           .slice(startPageCityIndex, endPageCityIndex)
           .map((city, index) => (
             <div key={index} className="flex justify-center">
