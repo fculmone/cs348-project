@@ -4,7 +4,6 @@ import { useSearchParams } from "next/navigation";
 import { Pencil, Trash } from "lucide-react";
 import ReviewModal from "@/components/ui/reviewModal";
 import Image from "next/image";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Heart } from "lucide-react";
 
 function CityImage({ cityData }) {
@@ -22,11 +21,7 @@ function CityImage({ cityData }) {
     <div className="flex justify-center my-6">
       <Image
         src={imgSrc}
-<<<<<<< HEAD
         alt={cityData.ranking + "-" + cityData.city + "-" + cityData.country}
-=======
-        alt="city image"
->>>>>>> c2642d9c (added image scraper, updated city page ui, added ability to favourite from city page)
         className="rounded-xl object-cover object-middle "
         width={900}
         height={360}
