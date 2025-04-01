@@ -406,8 +406,8 @@ export default function () {
       <div className=""></div>
 
       <div className="w-full flex justify-center"></div>
-      <div className="mx-20">
-        <h2 className="text-xl my-5">User Reviews</h2>
+      <div className="mx-32 mt-20">
+        <h2 className="text-xl my-5 font-semibold">User Reviews</h2>
         <button
           onClick={() => setShowModal(true)}
           className="px-4 py-2 mb-5 bg-blue-500 text-white rounded-md"
