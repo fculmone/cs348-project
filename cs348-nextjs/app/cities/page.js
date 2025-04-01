@@ -385,21 +385,79 @@ function Card({ cityData }) {
 export default function () {
   const [cities, setCities] = useState([]);
   const [pageNum, setPageNum] = useState(1);
-  const [sortDirection, setSortDirection] = useState(null); // null, 'asc', or 'desc'
+  const [sortDirection, setSortDirection] = useState("desc"); // 'asc', or 'desc'
+  const [sortBy, setSortBy] = useState("ranking");
   let startPageCityIndex = pageNum * 10 - 10;
   let endPageCityIndex = Math.min(pageNum * 10, cities.length);
 
-  function handleSort() {
-    // Cycle through: null -> asc -> desc -> null
-    if (sortDirection === null) {
-      setSortDirection('asc');
-    } else if (sortDirection === 'asc') {
-      setSortDirection('desc');
-    } else {
-      setSortDirection(null);
+  const columns = [
+    { name: "", value: "ranking" },
+    { name: "City", value: "city" },
+    { name: "Country", value: "country" },
+    { name: "Economic Performance", value: "economic_performance" },
+    { name: "Tourism Performance", value: "tourism_performance" },
+    { name: "Tourism Policy", value: "tourism_policy"},
+    { name: "Tourism Infrastructure", value: "tourism_infrastructure"},
+    { name: "Health Safety", value: "health_safety" },
+    { name: "Sustainability", value: "sustainability" }
+  ];
+
+  // Fetch all cities by default (without sorting)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetch("api/cities");
+        const response = await data.json();
+        setCities(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Fetch sorted cities when sorting by a column
+  useEffect(() => {
+    const fetchSortedCities = async () => {
+      try {
+        const data = await fetch(`api/sort-by?param=${sortBy}`);
+        const response = await data.json();
+        setCities(response);
+        console.log(cities);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (sortBy) {
+      fetchSortedCities();
     }
+  }, [sortBy]);
+
+  const handleSortChange = (selectedSortBy) => {
+    setSortBy(selectedSortBy);
+    if (selectedSortBy === "ranking") {
+      setSortDirection("desc");  // Reset to no sorting
+    }
+  };
+
+  function handleSort() {
+    // Cycle through: asc -> desc -> asc
+    setSortDirection(prevDirection => (prevDirection === "asc" ? "desc" : "asc"));
     // Reset to first page when sort changes
     setPageNum(1);
+    fetchSortedCities();
+  }
+
+  async function fetchSortedCities() {
+    try {
+      const data = await fetch(`api/sort-by/ranking?direction=${sortDirection}`);
+      const response = await data.json();
+      setCities(response);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function Search() {
@@ -469,6 +527,7 @@ export default function () {
     }
   }
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -484,27 +543,37 @@ export default function () {
     console.log(cities);
   }, []);
 
+
   return (
     <div className="flex flex-col items-center">
       <div className="my-10">
         <Search />
       </div>
+
+      {/* Dropdown for Sorting */}
+    <div className="flex items-center mb-6">
+      <label className="mr-2 text-gray-700">Sort By:</label>
+      <select
+        value={sortBy}
+        onChange={(e) => handleSortChange(e.target.value)}
+        className="border-2 border-gray-300 rounded p-2"
+      >
+        {columns.map((column) => (
+          <option key={column.value} value={column.value}>
+            {column.name}
+          </option>
+        ))}
+      </select>
+    </div>
+
       <Pages
         pageNum={pageNum}
         setPageNum={setPageNum}
         totalPages={Math.ceil(cities.length / 10)}
       />
+
       <div className="grid grid-cols-2 gap-9 my-6">
         {cities
-          .slice()
-          .sort((a, b) => {
-            if (sortDirection === 'asc') {
-              return a.ranking - b.ranking;
-            } else if (sortDirection === 'desc') {
-              return b.ranking - a.ranking;
-            }
-            return 0; 
-          })
           .slice(startPageCityIndex, endPageCityIndex)
           .map((city, index) => (
             <div key={index} className="flex justify-center">
