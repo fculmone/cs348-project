@@ -28,3 +28,18 @@ export async function POST(request) {
     return NextResponse.json({ error: error.message });
   }
 }
+
+export async function DELETE(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const username = searchParams.get('username');
+    const db = await createConnection();
+    const sql = `DELETE FROM user WHERE username = ?`;
+    const [response] = await db.query(sql, [username]);
+    return NextResponse.json(response);
+    
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}

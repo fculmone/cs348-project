@@ -14,6 +14,18 @@ CREATE TABLE reviews (
     FOREIGN KEY (city_id) REFERENCES top100_cities(ranking)
 );
 
+-- Create a trigger to handle user deletion
+DELIMITER //
+CREATE TRIGGER after_user_delete
+AFTER DELETE ON user
+FOR EACH ROW
+BEGIN
+    UPDATE reviews
+    SET username = 'Deleted User'
+    WHERE username = OLD.username;
+END //
+DELIMITER ;
+
 INSERT INTO reviews (city_id, username, rating, review_text)
 VALUES
 (1, 'bart', 5, "Very nice city");
