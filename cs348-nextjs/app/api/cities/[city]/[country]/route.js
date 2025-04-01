@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 export async function GET(request, context) {
   try {
     const { params } = context;
-    const city = params.city;
-    const country = params.country;
+    const { city } = await params;
+    const { country } = await params;
     const db = await createConnection();
     const sql = `SELECT * FROM top100_cities WHERE city = '${city}' AND country = '${country}';`;
     const [cities] = await db.query(sql);

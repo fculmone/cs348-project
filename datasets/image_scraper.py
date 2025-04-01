@@ -2,11 +2,11 @@ from selenium import webdriver
 import time
 from selenium.webdriver.common.by import By
 import csv
-
+import pyautogui
 import requests
 
 def download_url(img_url: str, file_name: str):
-    with open('images/' + file_name, 'wb') as handle:
+    with open('images2/' + file_name, 'wb') as handle:
         response = requests.get(img_url, stream=True)
 
         if not response.ok:
@@ -20,7 +20,11 @@ def download_url(img_url: str, file_name: str):
 
 #  "/html/body/div[2]/div[4]/div[2]/div[1]/div[2]/div[2]/div[N]/div[1]/span/img"
 
+
+#/html/body/div[2]/div[4]/div[2]/div/div[2]/div[2]/div[1]/div[1]
+
 driver = webdriver.Chrome() 
+driver.maximize_window()
 
 # requires the driver is already open
 def find_image_urls(search: str, count: int) -> list[str]:
@@ -28,17 +32,25 @@ def find_image_urls(search: str, count: int) -> list[str]:
     driver.get(url)
     driver.implicitly_wait(6)
     retval = []
-    for i in range (1, count + 1):
-        elements = driver.find_elements(By.XPATH, "/html/body/div[2]/div[4]/div[2]/div[1]/div[2]/div[2]/div[" + str(i) + "]/div[1]/span/img")
-        retval.append(elements[0].get_attribute('data-src'))
-    return retval
+
+    pyautogui.moveTo(33, 335, duration=1)
+    pyautogui.leftClick()
+    pyautogui.moveTo(504, 633, duration=1)
+    pyautogui.rightClick()
+    
+
+    # elements = driver.find_elements(By.CLASS_NAME, "tile--img__media")
+    
+    # for i in range (0, count):
+    #     retval.append(elements[0].get_attribute('data-src'))
+    # return retval
 
 
 
 city_images_file = open("city_images.csv", "w")
 city_images_file.write("city_id, city, country, img_url\n")
 
-start_from = 10
+start_from = 100
 
 top100_cities_path = r'C:\Users\Joe\Desktop\school\cs348\cs348-project\datasets\top100_cities.csv'
 with open(top100_cities_path, mode ='r', encoding='utf-8') as top100_cities:
