@@ -22,7 +22,11 @@ function CityImage({ cityData }) {
     <div className="flex justify-center my-6">
       <Image
         src={imgSrc}
+<<<<<<< HEAD
         alt={cityData.ranking + "-" + cityData.city + "-" + cityData.country}
+=======
+        alt="city image"
+>>>>>>> c2642d9c (added image scraper, updated city page ui, added ability to favourite from city page)
         className="rounded-xl object-cover object-middle "
         width={900}
         height={360}
@@ -120,6 +124,8 @@ export default function () {
   const [city, setCity] = useState({});
   const [reviews, setReviews] = useState([]);
   const [editingReviewId, setEditingReviewId] = useState(null);
+
+  const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -236,9 +242,29 @@ export default function () {
 
   return (
     <div>
-      <p>{city.city}</p>
-      <p>{city.country}</p>
-      <p>{city.description}</p>
+      <div className="flex justify-center flex-col">
+        <div className="flex mt-12 mx-80 items-center">
+          <h1 className="mb-1 text-4xl font-bold mr-4">
+            {city.city}, {city.country}
+          </h1>
+          <div>
+            <FavouriteHeart
+              favourites={favourites}
+              setFavourites={setFavourites}
+              cityData={city}
+            />
+          </div>
+        </div>
+
+        <div className="w-full justify-center flex">
+          <CityImage cityData={city} />
+        </div>
+        <div className="flex mx-80 mt-6">
+          <p>{city.description}</p>
+        </div>
+      </div>
+      <div className="w-full flex justify-center"></div>
+
       <h1 className="text-xl my-5">User Reviews</h1>
       <button
         onClick={() => setShowModal(true)}

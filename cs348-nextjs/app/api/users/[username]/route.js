@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET(request, context) {
   try {
     const { params } = context;
-    const username = params.username;
+    const { username } = await params;
     const db = await createConnection();
     const sql = `SELECT * FROM user WHERE username = '${username}';`;
     const [users] = await db.query(sql);
