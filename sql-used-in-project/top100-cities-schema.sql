@@ -113,3 +113,20 @@ INSERT INTO top100_cities(ranking,city,country,economic_performance,tourism_perf
 INSERT INTO top100_cities(ranking,city,country,economic_performance,tourism_performance,tourism_policy,tourism_infrastructure,health_safety,sustainability,description) VALUES (3,'Madrid','Spain',21,42,6,5,18,1,'Madrid is a lively—though old—city with an energetic population. Walking down the street, you''re likely to see buildings from the 16th century, built during the peak of the Spanish Empire or even earlier. Fans of soccer, aka football or fútbol, would enjoy a tour around Santiago Bernabéu Stadium, the home of the world-famous and prolific Real Madrid team. If you want to escape the crowded city squares, check out the park El Retiro. This UNESCO World Heritage Site is a great place to relax; go for a jog; rent a bike; go for a boat ride on the park''s lake in the summer; or even admire Madrid''s oldest tree, which has been alive since 1633.');
 INSERT INTO top100_cities(ranking,city,country,economic_performance,tourism_performance,tourism_policy,tourism_infrastructure,health_safety,sustainability,description) VALUES (2,'Dubai','United Arab Emirates',4,4,9,15,14,70,'This oasis in the desert is home to some of the world''s best hotels, shopping, and increasingly good dining and cultural options. These are just some factors that make Dubai the most popular destination in Africa and the Middle East. Check out Ski Dubai, the world''s first indoor ski resort, open year-round in the city''s warm climate. The gold and spice souks are large bazaars offering precious jewelry and pungent flavors. Of course, the city''s also home to Burj Khalifa, the tallest building in the world, at 2,716 feet above the city.');
 INSERT INTO top100_cities(ranking,city,country,economic_performance,tourism_performance,tourism_policy,tourism_infrastructure,health_safety,sustainability,description) VALUES (1,'Paris','France',24,1,1,2,47,33,'Even travelers who have never been to the City of Lights have heard about its many landmarks and attractions, such as the unmistakable Eiffel Tower, the beautiful and gigantic Musée du Louvre—the most-visited museum in the world, the Arc de Triomphe, and the Notre-Dame Cathedral, which was devastated by fire in 2019 and lost its wooden roof and spire. People worldwide raised money in support, and this famous landmark closed for renovations until reopening in December 2024.');
+
+--INDICES
+CREATE INDEX idx_city ON top100_cities(city);
+
+CREATE INDEX idx_country ON top100_cities(country);
+
+CREATE INDEX idx_economic_performance ON top100_cities(economic_performance);
+
+CREATE INDEX idx_tourism_performance ON top100_cities(tourism_performance);
+
+CREATE INDEX idx_tourism_policy ON top100_cities(tourism_policy);
+
+CREATE INDEX idx_tourism_infrastructure ON top100_cities(tourism_infrastructure);
+
+CREATE INDEX idx_health_safety ON top100_cities(health_safety);
+
+CREATE INDEX idx_sustainability ON top100_cities(sustainability);
