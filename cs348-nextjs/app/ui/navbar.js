@@ -37,12 +37,6 @@ export default function Navbar() {
         <li className="hover:text-gray-400 cursor-pointer">
           <Link href="/cities">Cities</Link>
         </li>
-        <li className="hover:text-gray-400 cursor-pointer">
-          <Link href="/">Services</Link>
-        </li>
-        <li className="hover:text-gray-400 cursor-pointer">
-          <Link href="/">Contact</Link>
-        </li>
       </ul>
 
       <div className="flex-1 flex justify-end">
