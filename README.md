@@ -23,7 +23,7 @@ Make sure your local MySQL server is up and running. You can connect to the mysq
 ```
 mysql -u root -p
 ```
-From there, you can copy every command from the schema.sql file from the repository and paste it in the terminal to create a database named test_db and a table called test which will be pre-populated with data.
+From there, you can copy every command from the final_schema.sql file from the repository and paste it in the terminal to create a database named test_db and a table called test which will be pre-populated with data.
 
 ## Set up Next.js
 Cd into the cs348-nextjs folder. This is where the main project is stored. You will need to have Node.js and npm installed. Check to see if you already have them installed with the following commands. The minimum Node.js version required to run Next.js 14 is v18.17
