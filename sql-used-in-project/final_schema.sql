@@ -287,7 +287,7 @@ INSERT INTO top100_cities_weather (
 
 -- Indices to allow for faster joins
 CREATE INDEX idx_weather_country ON top100_cities_weather(country);
-CREATE INDEX idx_weather_country ON top100_cities_weather(city);
+CREATE INDEX idx_weather_city ON top100_cities_weather(city);
 
 
 -- Create favourite cities table
