@@ -61,6 +61,11 @@ If you would like to understand how React itself works. I strongly reccomend the
 * https://react.dev/learn
 
 
+## Download City Images
+Cd into the cs348-nextjs/public folder. You will need to put a file called city-images in this folder. This folder contains all the city images that are used in display cards and on the main city page. To do this, download the zip folder from [the google drive](https://drive.google.com/file/d/1OSIuIooH5W_NPxcs1U82mh48WdCBxzfk/view?usp=sharing). Extract the folder and place the folder and place it in your public directory. Note that you are putting the entire folder in the public directory and not just the images.
+
+
+
 ## Implemented Features & Files
 - Sign up, Log in/Log out (log_in/page.js, sign_up/page.js, store/user_store.js, api/users/route.js)
 - Favourite a city & view favourites in profile (api/favourite_cities/route.js, api/ranking/[ranking]/route.js cities/page.js, profile/page.js)
