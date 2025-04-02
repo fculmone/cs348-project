@@ -20,7 +20,7 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md py-4 px-8 flex items-center justify-between sticky top-0 z-50">
       <div className="text-xl font-bold flex items-center flex-1">
-        Travel Site Name
+        Destination Dashboard
         <Image
           src="/images/logo.png" // Route of the image file
           height={55} // Desired size with correct aspect ratio
