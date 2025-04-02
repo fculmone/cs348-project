@@ -16,6 +16,8 @@ export default function TopFavCities() {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [favoriteCities, setFavoriteCities] = useState([]);
+
 
   useEffect(() => {
     async function fetchTopCities() {
@@ -31,6 +33,17 @@ export default function TopFavCities() {
       }
     }
     fetchTopCities();
+    
+    const fetchMostFavoritedCities = async () => {
+      try {
+        const response = await fetch("/api/monthly_fav"); 
+        const data = await response.json();
+        setFavoriteCities(data); 
+      } catch (error) {
+        console.error("Error fetching most favorited cities:", error);
+      }
+    };
+    fetchMostFavoritedCities();
   }, []);
 
   if (loading) return <div className="p-4">Loading top favourite cities...</div>;
@@ -66,6 +79,29 @@ export default function TopFavCities() {
           </div>
         ))}
       </div>
-    </div>
+        <div className="mt-8">
+        <h2 className="text-xl font-semibold text-gray-800">Most Favorited Cities (Resets Monthly)</h2>
+        {favoriteCities.length > 0 ? (
+          <table className="mt-4 w-full table-auto border-collapse">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 text-left">City</th>
+                <th className="px-4 py-2 text-left">Favorites</th>
+              </tr>
+            </thead>
+            <tbody>
+              {favoriteCities.map((city, index) => (
+                <tr key={index} className="border-b">
+                  <td className="px-4 py-2">{city.city_name}</td>
+                  <td className="px-4 py-2">{city.total_favourites}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="mt-4 text-gray-500 italic">No cities favorited this month yet.</p>
+        )}
+      </div>
+      </div>
   );
 }
