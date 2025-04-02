@@ -10,7 +10,6 @@ CREATE TABLE reviews (
     username VARCHAR(255) NOT NULL,
     rating INT CHECK (rating BETWEEN 1 AND 5),
     review_text TEXT,
-    FOREIGN KEY (username) REFERENCES user(username),
     FOREIGN KEY (city_id) REFERENCES top100_cities(ranking)
 );
 

@@ -391,7 +391,7 @@ export default function () {
   let endPageCityIndex = Math.min(pageNum * 10, cities.length);
 
   const columns = [
-    { name: "", value: "ranking" },
+    { name: "Popularity", value: "ranking" },
     { name: "City", value: "city" },
     { name: "Country", value: "country" },
     { name: "Economic Performance", value: "economic_performance" },
@@ -489,15 +489,6 @@ export default function () {
             </button>
           </form>
         </div>
-        <button
-          onClick={handleSort}
-          className="ml-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm flex items-center absolute"
-          style={{ right: "calc(50% - 375px)" }}
-        >
-          <span>Sort by Popularity</span>
-          {sortDirection === 'asc' && <span className="ml-1">↑</span>}
-          {sortDirection === 'desc' && <span className="ml-1">↓</span>}
-        </button>
       </div>
     );
   }

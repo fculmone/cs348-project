@@ -32,7 +32,6 @@ DROP TABLE IF EXISTS  favourite_cities;
 CREATE TABLE favourite_cities (
     username VARCHAR(255) NOT NULL,
     city_id INT NOT NULL,
-    FOREIGN KEY (username) REFERENCES user(username),
     FOREIGN KEY (city_id) REFERENCES top100_cities(ranking),
     PRIMARY KEY (username, city_id)
 );

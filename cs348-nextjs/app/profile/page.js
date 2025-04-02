@@ -26,6 +26,24 @@ export default function Profile() {
     document.location.href = "/";
   }
 
+
+  const handleDelete = async (username) => {
+    try {
+      const response = await fetch(`api/users?username=${encodeURIComponent(username)}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) throw new Error("Failed to delete user");
+
+      alert("User deleted successfully!");
+      window.localStorage.clear();
+      document.location.href = "/";
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      alert("Error deleting user.");
+    }
+  };
+
   const fetchFavourites = async (username) => {
     try {
       
@@ -82,11 +100,16 @@ export default function Profile() {
           </div>
   
           {/* Logout Button */}
-          <div className="mt-10">
+          <div className="mt-10 flex space-x-4">
             <Button
               onClick={logOut}
               className="bg-red-500 hover:bg-red-400 text-white font-semibold py-2 px-6 rounded-full transition">
               Log Out
+            </Button>
+            <Button
+              onClick={() => handleDelete(username)}
+              className="bg-red-500 hover:bg-red-400 text-white font-semibold py-2 px-6 rounded-full transition">
+              Delete Account
             </Button>
           </div>
         </div>
