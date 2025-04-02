@@ -62,7 +62,7 @@ If you would like to understand how React itself works. I strongly reccomend the
 
 
 ## Download City Images
-Cd into the cs348-nextjs/public folder. You will need to put a file called city-images in this folder. This folder contains all the city images that are used in display cards and on the main city page. To do this, download the zip folder from [the google drive](https://drive.google.com/file/d/1OSIuIooH5W_NPxcs1U82mh48WdCBxzfk/view?usp=sharing). Extract the folder and place the folder and place it in your public directory. Note that you are putting the entire folder in the public directory and not just the images.
+Cd into the cs348-nextjs/public folder. You will need to put a file called city-images in this folder. This folder contains all the city images that are used in display cards and on the main city page. To do this, download the zip folder from [the google drive](https://drive.google.com/file/d/1OSIuIooH5W_NPxcs1U82mh48WdCBxzfk/view?usp=sharing). Extract the folder and place it in your public directory. Note that you are putting the entire unzipped folder in the public directory and not just the images.
 
 
 
