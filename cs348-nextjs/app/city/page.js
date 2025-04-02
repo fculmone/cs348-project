@@ -409,7 +409,7 @@ export default function () {
             {/* Username + Rating */}
             <div className="flex items-center mb-2">
               <span className="font-bold text-blue-600">
-                {!review.is_deleted ? review.username : "Deleted User"}
+                {review.username != "Deleted User" ? `@${review.username}` : review.username}
               </span>
               <span className="ml-2 text-yellow-500">⭐ {review.rating}/5</span>
             </div>
