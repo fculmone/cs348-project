@@ -105,56 +105,44 @@ function FavouriteHeart({ favourites, setFavourites, cityData }) {
   );
 }
 
-function WeatherCard({ cityName, countryName, weather, setWeather }) {
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(`/api/weather/${cityName}/${countryName}`);
-      let data = await response.json();
-      setWeather(data[0]);
-      console.log("----");
-      console.log(weather);
-    }
-
-    fetchData();
-  }, []);
-
+function WeatherCard({ cityName, countryName, weather }) {
   function generateWeatherDescription() {
     let weatherDesc = `The weather in ${weather.city}, ${weather.country} `;
 
-    if (weather.description === "clear sky") {
+    if (weather.weather_desc === "clear sky") {
       weatherDesc +=
         "is reported to have clear skies on most days, meaning you can expect to comfortably enjoy the sunshine.";
-    } else if (weather.description === "broken clouds") {
+    } else if (weather.weather_desc === "broken clouds") {
       weatherDesc +=
         "features broken clouds, with the sun occasionally peeking through. It’s a mix of cloud cover and clearer skies.";
-    } else if (weather.description === "shower rain") {
+    } else if (weather.weather_desc === "shower rain") {
       weatherDesc +=
         "includes intermittent shower rain, so you might want to carry an umbrella just in case of sudden downpours.";
-    } else if (weather.description === "scattered clouds") {
+    } else if (weather.weather_desc === "scattered clouds") {
       weatherDesc +=
         "has scattered clouds, creating a partly cloudy atmosphere with plenty of bright spots.";
-    } else if (weather.description === "overcast clouds") {
+    } else if (weather.weather_desc === "overcast clouds") {
       weatherDesc +=
         "is dominated by overcast clouds, giving the sky a gray appearance and limiting sunlight.";
-    } else if (weather.description === "light rain") {
+    } else if (weather.weather_desc === "light rain") {
       weatherDesc +=
         "is experiencing light rain, which may be gentle and steady—good to be prepared with light rain gear.";
-    } else if (weather.description === "few clouds") {
+    } else if (weather.weather_desc === "few clouds") {
       weatherDesc +=
         "has just a few clouds in the sky, so you can expect mostly sunny weather with minimal interruptions.";
-    } else if (weather.description === "fog") {
+    } else if (weather.weather_desc === "fog") {
       weatherDesc +=
         "is affected by fog, which may reduce visibility. Exercise caution if you're traveling.";
-    } else if (weather.description === "mist") {
+    } else if (weather.weather_desc === "mist") {
       weatherDesc +=
         "is experiencing misty conditions, with a fine layer of moisture in the air that can make surfaces damp.";
-    } else if (weather.description === "moderate rain") {
+    } else if (weather.weather_desc === "moderate rain") {
       weatherDesc +=
         "includes moderate rain, steady enough to need a raincoat or umbrella when going outside.";
-    } else if (weather.description === "heavy intensity rain") {
+    } else if (weather.weather_desc === "heavy intensity rain") {
       weatherDesc +=
         "is facing heavy intensity rain, which may lead to puddles or minor flooding in some areas—take precautions.";
-    } else if (weather.description === "haze") {
+    } else if (weather.weather_desc === "haze") {
       weatherDesc +=
         "is under hazy conditions, which can dull visibility and give the air a slightly smoky or dusty feel.";
     } else {
@@ -237,7 +225,6 @@ export default function () {
   const countryName = searchParams.get("country");
 
   const [savedUsername, setSavedUsername] = useState("");
-  const [weather, setWeather] = useState(null);
   const [rating, setRating] = useState(5);
   const [reviewText, setReviewText] = useState("");
   const [reviewEdit, setReviewEdit] = useState(false);
@@ -265,7 +252,7 @@ export default function () {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetch(`api/cities/${cityName}/${countryName}`);
+        const data = await fetch(`/api/weather/${cityName}/${countryName}`);
         const response = await data.json();
         setCity(response[0]);
         console.log("city:");
@@ -389,15 +376,14 @@ export default function () {
         <div className="flex flex-col mx-80 mt-6">
           <div>
             <h2 className="font-semibold text-xl mb-3">About</h2>
-            <p>{city.description}</p>
+            <p>{city.city_desc}</p>
           </div>
           <div>
             <h2 className="font-semibold text-xl mb-3 mt-10">Weather</h2>
             <WeatherCard
               cityName={cityName}
               countryName={countryName}
-              weather={weather}
-              setWeather={setWeather}
+              weather={city}
             />
           </div>
         </div>
@@ -422,7 +408,9 @@ export default function () {
           >
             {/* Username + Rating */}
             <div className="flex items-center mb-2">
-              <span className="font-bold text-blue-600">{!review.is_deleted ? review.username : "Deleted User"}</span>
+              <span className="font-bold text-blue-600">
+                {!review.is_deleted ? review.username : "Deleted User"}
+              </span>
               <span className="ml-2 text-yellow-500">⭐ {review.rating}/5</span>
             </div>
 

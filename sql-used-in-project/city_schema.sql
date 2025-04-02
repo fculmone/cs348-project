@@ -1,4 +1,4 @@
--- CREATE DATABASE cs348_project_db;
+CREATE DATABASE cs348_project_db;
 USE cs348_project_db;
 
 

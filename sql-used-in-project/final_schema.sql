@@ -285,7 +285,9 @@ INSERT INTO top100_cities_weather (
     'Venice', 13.00, 2.68, 45.4408, 12.3155, 'fog', 'Italy'
 );
 
-
+-- Indices to allow for faster joins
+CREATE INDEX idx_weather_country ON top100_cities_weather(country);
+CREATE INDEX idx_weather_country ON top100_cities_weather(city);
 
 
 -- Create favourite cities table
