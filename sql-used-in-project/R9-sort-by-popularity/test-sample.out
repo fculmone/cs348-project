@@ -1,0 +1,5 @@
+city_id,city_name,country,description,popularity,health_rating
+2,New York,USA,Famous for the Statue of Liberty, Times Square, and skyscrapers.,85,30
+1,Paris,France,Known for its rich history and landmarks like the Eiffel Tower.,92,50
+4,London,United Kingdom,Famous for its historical landmarks like the Big Ben and the British Museum.,93,90
+3,Tokyo,Japan,Known for its advanced technology, fashion, and bustling city life.,98,12
