@@ -7,31 +7,34 @@ export async function GET(request) {
     const param = searchParams.get("param");
 
     const allowedColumns = [
-        'ranking',
-        'city',
-        'country',
-        'economic_performance',
-        'tourism_performance',
-        'tourism_policy',
-        'tourism_infrastructure',
-        'health_safety',
-        'sustainability',
-      ];
-  
-      // Check if the passed column parameter is valid
+      "ranking",
+      "city",
+      "country",
+      "economic_performance",
+      "tourism_performance",
+      "tourism_policy",
+      "tourism_infrastructure",
+      "health_safety",
+      "sustainability",
+    ];
+
+    // Check if the passed column parameter is valid
     if (!allowedColumns.includes(param)) {
-        return NextResponse.json({ error: 'Invalid sort column' }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid sort column" },
+        { status: 400 }
+      );
     }
 
-    var direction = "";
-    if (param == "city" || param == "country" || param == "ranking") {
-        direction = "ASC";
-    } else {
-        direction = "DESC";
-    }
-      
+    // var direction = "";
+    // if (param == "city" || param == "country" || param == "ranking") {
+    //   direction = "ASC";
+    // } else {
+    //   direction = "DESC";
+    // }
+
     const db = await createConnection();
-    const sql = `SELECT * FROM top100_cities ORDER BY ${param} ${direction}`;
+    const sql = `SELECT * FROM top100_cities ORDER BY ${param} ASC`;
     const [results] = await db.query(sql, [param]);
 
     return NextResponse.json(results);

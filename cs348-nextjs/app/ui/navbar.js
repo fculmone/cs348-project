@@ -20,7 +20,7 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md py-4 px-8 flex items-center justify-between sticky top-0 z-50">
       <div className="text-xl font-bold flex items-center flex-1">
-        Travel Site Name
+      City Seeker
         <Image
           src="/images/logo.png" // Route of the image file
           height={55} // Desired size with correct aspect ratio
@@ -36,12 +36,6 @@ export default function Navbar() {
         </li>
         <li className="hover:text-gray-400 cursor-pointer">
           <Link href="/cities">Cities</Link>
-        </li>
-        <li className="hover:text-gray-400 cursor-pointer">
-          <Link href="/">Services</Link>
-        </li>
-        <li className="hover:text-gray-400 cursor-pointer">
-          <Link href="/">Contact</Link>
         </li>
       </ul>
 

@@ -11,6 +11,10 @@ export default function SignUp() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    if (inputUsername === "Deleted User") {
+      alert(`Invalid Username`);
+      return;
+    }
     const form = document.getElementById("createAccountForm");
     const pfpNum = getRandomInt(10);
     const pfpString = `pfp${pfpNum}.jpg`;

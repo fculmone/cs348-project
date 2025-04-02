@@ -103,7 +103,7 @@ export default function Profile() {
           <div className="mt-10 flex space-x-4">
             <Button
               onClick={logOut}
-              className="bg-red-500 hover:bg-red-400 text-white font-semibold py-2 px-6 rounded-full transition">
+              className="bg-gray-500 hover:bg-gray-400 text-white font-semibold py-2 px-6 rounded-full transition">
               Log Out
             </Button>
             <Button
