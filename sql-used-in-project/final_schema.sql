@@ -296,6 +296,7 @@ CREATE TABLE favourite_cities (
     username VARCHAR(255) NOT NULL,
     city_id INT NOT NULL,
     FOREIGN KEY (city_id) REFERENCES top100_cities(ranking),
+    FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE,
     PRIMARY KEY (username, city_id)
 );
 
