@@ -26,13 +26,6 @@ export async function GET(request) {
       );
     }
 
-    // var direction = "";
-    // if (param == "city" || param == "country" || param == "ranking") {
-    //   direction = "ASC";
-    // } else {
-    //   direction = "DESC";
-    // }
-
     const db = await createConnection();
     const sql = `SELECT * FROM top100_cities ORDER BY ${param} ASC`;
     const [results] = await db.query(sql, [param]);
