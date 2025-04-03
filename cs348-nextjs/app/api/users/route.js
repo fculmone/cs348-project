@@ -34,9 +34,13 @@ export async function DELETE(request) {
     const { searchParams } = new URL(request.url);
     const username = searchParams.get('username');
     const db = await createConnection();
-    const sql = `DELETE FROM user WHERE username = ?`;
-    const [response] = await db.query(sql, [username]);
+    const sql1 = `DELETE FROM favourite_cities WHERE username = ?`;
+    await db.query(sql1, [username]);
+    const sql2 = `DELETE FROM user WHERE username = ?`;
+    const [response] = await db.query(sql2, [username]);
     return NextResponse.json(response);
+
+    
     
   } catch (error) {
     console.log(error);
