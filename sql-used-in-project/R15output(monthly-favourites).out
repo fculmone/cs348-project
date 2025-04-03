@@ -1,15 +1,8 @@
-mysql> SELECT city_id, city_name, country, total_favourites, last_updated
-    ->             FROM most_favourited
-    ->             ORDER BY total_favourites DESC;
-+---------+-----------+----------------------+------------------+---------------------+
-| city_id | city_name | country              | total_favourites | last_updated        |
-+---------+-----------+----------------------+------------------+---------------------+
-|       5 | Amsterdam | Netherlands          |                3 | 2025-04-03 18:08:09 |
-|       7 | Rome      | Italy                |                3 | 2025-04-03 18:08:17 |
-|       1 | Paris     | France               |                1 | 2025-04-03 18:07:10 |
-|       2 | Dubai     | United Arab Emirates |                1 | 2025-04-03 18:08:09 |
-|       3 | Madrid    | Spain                |                1 | 2025-04-03 18:08:09 |
-|       4 | Tokyo     | Japan                |                1 | 2025-04-03 18:08:09 |
-|       6 | Berlin    | Germany              |                1 | 2025-04-03 18:08:09 |
-+---------+-----------+----------------------+------------------+---------------------+
-7 rows in set (0.00 sec)
+city_id,city_name,country,total_favourites,last_updated
+5,Amsterdam,Netherlands,3,"2025-04-03 18:08:09"
+7,Rome,Italy,3,"2025-04-03 18:08:17"
+1,Paris,France,1,"2025-04-03 18:07:10"
+2,Dubai,"United Arab Emirates",1,"2025-04-03 18:08:09"
+3,Madrid,Spain,1,"2025-04-03 18:08:09"
+4,Tokyo,Japan,1,"2025-04-03 18:08:09"
+6,Berlin,Germany,1,"2025-04-03 18:08:09"
