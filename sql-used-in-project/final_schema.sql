@@ -305,6 +305,7 @@ INSERT INTO favourite_cities (username, city_id)
 VALUES 
 ('bart', 1);
 
+ALTER TABLE favourite_cities ADD COLUMN timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 -- Create most_favourited table
 DROP TABLE IF EXISTS most_favourited;
