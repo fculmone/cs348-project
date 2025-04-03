@@ -1,1 +1,1 @@
-SELECT * FROM cities ORDER BY ranking ASC;
+SELECT * FROM city ORDER BY popularity ASC;
